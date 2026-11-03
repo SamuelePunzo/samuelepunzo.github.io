@@ -1,7 +1,6 @@
 {{/* One chronological journey for work and education; content stays in author data. */}}
 {{ $block := .wcBlock }}
 {{ $profile := partial "functions/get_author_profile" ($block.content.username | default "me") }}
-{{ $dateFormat := $block.design.date_format | default "January 2006" }}
 {{ $stops := slice }}
 {{ range $profile.experience }}
   {{ $title := .role }}
@@ -29,7 +28,10 @@
         {{ $active := not $stop.end }}
         {{ with $stop.end }}{{ $active = (time .).After now }}{{ end }}
         <li class="journey-step{{ if ge $position 50 }} journey-step-left{{ end }}{{ if $active }} journey-step-current{{ end }}" style="--stop-position: {{ $position }}%;" data-start="{{ $stop.start }}">
-          <span class="journey-stop" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+          <time class="journey-stop" datetime="{{ $stop.start }}" aria-label="Started {{ time.Format "January 2006" $stop.start }}">
+            <span class="journey-stop-month">{{ time.Format "Jan" $stop.start }}</span>
+            <span class="journey-stop-year">{{ time.Format "2006" $stop.start }}</span>
+          </time>
           <article class="journey-card">
             <div class="journey-card-meta">
               <span class="journey-kind">{{ $stop.kind }}</span>
@@ -37,11 +39,6 @@
             </div>
             <h3>{{ $stop.title }}</h3>
             <p class="journey-org">{{ $stop.org }}</p>
-            <p class="journey-dates">
-              <time datetime="{{ $stop.start }}">{{ time.Format $dateFormat $stop.start }}</time>
-              <span aria-hidden="true"> &ndash; </span>
-              {{ with $stop.end }}<time datetime="{{ . }}">{{ time.Format $dateFormat . }}</time>{{ else }}Present{{ end }}
-            </p>
           </article>
         </li>
       {{ end }}

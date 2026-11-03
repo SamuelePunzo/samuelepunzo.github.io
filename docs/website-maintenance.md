@@ -79,9 +79,9 @@ links to his website.
 ## Combined experience and education path
 
 The full Experience block merges `experience` and `education` from
-`data/authors/me.yaml`, sorted by start date. On desktop, numbered stops rise
+`data/authors/me.yaml`, sorted by start date. On desktop, stops labeled with their starting month and year rise
 from the bottom left to the top right; on narrow screens they read from top
-to bottom in chronological order. Cards show titles, institutions, and dates;
+to bottom in chronological order. Cards show titles and institutions; date ranges are omitted;
 long descriptions remain in the author data and CV. The `lab` and `supervisor`
 fields expand the titles of research assistant and visiting researcher roles.
 The local `resume-experience` block, `assets/js/experience-journey.js`, and
