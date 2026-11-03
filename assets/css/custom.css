@@ -59,40 +59,112 @@ html {
 }
 
 .profile-portrait {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid var(--hb-color-background, #fff);
   box-shadow: 0 0 0 1px rgb(148 163 184 / 25%);
 }
 
-#particle-motion-toggle {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.5rem;
-  z-index: 2;
-  padding: 0.35rem 0.6rem;
-  border: 1px solid rgb(148 163 184 / 30%);
-  border-radius: 0.35rem;
-  color: #475569;
-  background: rgb(255 255 255 / 90%);
-  font: inherit;
-  font-size: 0.7rem;
-  cursor: pointer;
-}
-
-.dark #particle-motion-toggle {
-  color: #cbd5e1;
-  background: rgb(15 23 42 / 90%);
-}
-
-#particle-motion-toggle:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
-}
 
 @media (max-width: 767px) {
   #profile-particles { opacity: 0.22; }
-  .profile-portrait { width: 160px; height: 160px; }
+  .profile-portrait { width: 128px; height: 128px; }
+}
+
+.research-experience-heading {
+  font-size: 1.65rem;
+}
+
+.research-experience-list {
+  display: grid;
+  gap: 0.7rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.research-experience-item {
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid #cbd5e1;
+}
+
+.research-experience-item.is-current {
+  border-left-color: var(--color-primary-600);
+  border-radius: 0 0.35rem 0.35rem 0;
+  background: color-mix(in srgb, var(--color-primary-600) 5%, transparent);
+}
+
+.research-experience-role {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.current-role-badge {
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  background: var(--color-primary-100);
+  color: var(--color-primary-800);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.dark .research-experience-item { border-left-color: #475569; }
+.dark .research-experience-item.is-current {
+  border-left-color: #fbbf24;
+  background: rgb(251 191 36 / 6%);
+}
+.dark .current-role-badge {
+  background: rgb(251 191 36 / 15%);
+  color: #fde68a;
+}
+
+/* Preserve the full diagrams in publication previews. */
+.publication-figure-thumbnail {
+  display: block;
+  width: 260px;
+  height: 170px;
+  max-width: 100%;
+  object-fit: contain;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+.featured-image[src*="animacy-circuits/"],
+.featured-image[src*="hierarchical-planning/"],
+.featured-image[src*="intuitive-physics/"] {
+  background: #fff;
+}
+
+/* Article credits sit below diagrams so they do not obscure the figure. */
+.featured-image-wrapper:has(.featured-image[src*="animacy-circuits/"]),
+.featured-image-wrapper:has(.featured-image[src*="hierarchical-planning/"]),
+.featured-image-wrapper:has(.featured-image[src*="intuitive-physics/"]) {
+  max-height: none !important;
+}
+.featured-image[src*="animacy-circuits/"] + .article-header-caption,
+.featured-image[src*="hierarchical-planning/"] + .article-header-caption,
+.featured-image[src*="intuitive-physics/"] + .article-header-caption {
+  position: static;
+  display: block;
+  padding: 0.5rem 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+.featured-image-wrapper:has(.featured-image[src*="animacy-circuits/"]) .article-header-caption a,
+.featured-image-wrapper:has(.featured-image[src*="hierarchical-planning/"]) .article-header-caption a,
+.featured-image-wrapper:has(.featured-image[src*="intuitive-physics/"]) .article-header-caption a {
+  color: var(--color-primary-600);
+  text-decoration: underline;
+}
+.dark .featured-image-wrapper .article-header-caption a {
+  color: var(--color-primary-400);
 }

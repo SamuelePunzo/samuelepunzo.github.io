@@ -21,7 +21,7 @@ hugoblox:
     # Short tagline displayed on your site
     tagline: ""
     # Site meta description for search engines and social sharing
-    description: "Samuele Punzo — MSc AI student at UvA and Research Assistant at ILLC. Research on mechanistic interpretability, explainable AI, and biomedical ML."
+    description: "Samuele Punzo — MSc AI student at UvA and Research Assistant at ILLC. Research on mechanistic interpretability, multimodal reasoning, and AI safety."
     # Social accounts (used for meta tags like Twitter Cards)
     social:
       twitter: ""                          # Twitter/X handle for Twitter Cards (without @)
@@ -43,7 +43,8 @@ hugoblox:
       secondary: "cyan"
       neutral: ""                       # Affects gray utilities (text-gray-*, bg-gray-*)
     # Optional: Mode-specific color overrides
-    colors_light: {}
+    colors_light:
+      primary: "#115e59" # Teal green from the previous retro theme
     colors_dark: {}
     # Optional: Semantic surface color overrides
     surfaces:

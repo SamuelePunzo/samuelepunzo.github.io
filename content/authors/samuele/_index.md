@@ -3,25 +3,21 @@ title: Samuele Punzo
 first_name: Samuele
 last_name: Punzo
 superuser: true
-role: MSc AI Student & Research Assistant
+role: MSc AI Student & Researcher
 organizations:
-  - name: ILLC, University of Amsterdam
-    url: 'https://www.illc.uva.nl/'
-bio: Mechanistic interpretability and explainable AI for biomedical applications. RA at ILLC, UvA.
+  - name: University of Amsterdam
+    url: 'https://www.uva.nl/'
+bio: Mechanistic interpretability and AI safety. MSc AI student at UvA and Research Assistant at ILLC.
 interests:
   - Mechanistic Interpretability
-  - Explainable AI
-  - Large Language Models
-  - NLP and Transformers
-  - Biomedical Applications
+  - AI Safety
+  - Multimodal Deep Learning
+  - Natural Language Processing
 education:
   courses:
-    - course: Research Assistant
-      institution: ILLC, University of Amsterdam
-      year: 2026
-    - course: Teaching Assistant — BSc ML
-      institution: Vrije Universiteit Amsterdam
-      year: 2026
+    - course: MSc in Artificial Intelligence
+      institution: University of Amsterdam
+      year: 2027
 social:
   - icon: envelope
     icon_pack: fas
@@ -35,4 +31,4 @@ social:
 highlight_name: true
 ---
 
-MSc AI student at UvA and Research Assistant at ILLC. Research focuses on mechanistic interpretability of transformer models and explainable ML pipelines for biomedical applications.
+HI! I am a master's Artificial Intelligence student at the University of Amsterdam and a Research Assistant at the Institute for Logic, Language and Computation (ILLC). My research focuses on mechanistic interpretability and AI Safety. My long-term goals are to discover robust explanations about how multimodal LLM reason and transfer them to actionable methods for improving model reliability, oversight, and safety.

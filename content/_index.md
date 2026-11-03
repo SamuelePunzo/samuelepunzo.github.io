@@ -21,7 +21,7 @@ sections:
         url: uploads/resume.pdf
       headings:
         about: ''
-        education: 'Current Positions'
+        research_experience: 'Research Experience'
         interests: ''
     design:
       background:
@@ -38,11 +38,13 @@ sections:
       title: '📚 My Research'
       subtitle: ''
       text: |-
-        I am a Research Assistant at the [Institute for Logic, Language and Computation (ILLC)](https://www.illc.uva.nl/) at the University of Amsterdam, where I work on **mechanistic interpretability** of transformer models — specifically identifying the internal neural circuits responsible for linguistic disambiguation.
+        My research asks how we can develop robust explanations of model behavior and turn them into practical improvements in reliability, oversight, and safety. I am particularly interested in three connected directions:
 
-        Previously, at the University of Pisa, I developed **explainable machine learning pipelines** for biomedical applications, including novel biomarker discovery for Multiple Sclerosis using multi-omics data (Microarray & scRNA-seq) and interpretability tools such as SHAP and LIME.
+        **Interpretability that generalizes.** My work on animacy circuits showed that mechanisms recovered for one task can fail to transfer when contexts and expected completions change. I want to develop causal interpretability methods that remain reliable across prompts, tasks, and data distributions, combining circuit discovery across tasks with interventions that test which mechanisms are stable.
 
-        My research interests span **mechanistic interpretability, explainable AI, NLP, and biomedical applications of machine learning**.
+        **How multimodal models reason about the world.** Building on my work on token-level perplexity, intuitive physics in video models, and spatial representations at MPI-INF, I aim to understand how models represent and use objects, spatial relations, and physical events. I am interested in when visual evidence guides reasoning, when it gives way to parametric knowledge, and whether explicit representations or causal interventions can help preserve relevant visual information.
+
+        **Mechanistic interpretability for AI safety.** At SPAR, I investigate refusal circuits in encoder-free models. A longer-term goal is to understand how refusal mechanisms emerge and change during reinforcement learning from human feedback, and when they influence a model's response. I want to use these insights to inform alignment methods and improve oversight and safeguards while preserving useful capabilities.
     design:
       columns: '1'
       css_class: 'wide-content'

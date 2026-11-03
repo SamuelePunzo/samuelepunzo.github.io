@@ -3,8 +3,7 @@
  */
 (() => {
   const container = document.getElementById('profile-particles');
-  const toggle = document.getElementById('particle-motion-toggle');
-  if (!container || !toggle || typeof window.particlesJS !== 'function') return;
+  if (!container || typeof window.particlesJS !== 'function') return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = () => document.documentElement.classList.contains('dark')
@@ -35,15 +34,11 @@
 
   const engine = window.pJSDom.find(item => item.pJS.canvas.el.parentElement === container)?.pJS;
   if (!engine) return;
-  let paused = false;
   let inView = true;
   let running = true;
 
   function syncMotion() {
-    const shouldRun = !paused && !reducedMotion.matches && !document.hidden && inView;
-    toggle.hidden = reducedMotion.matches;
-    toggle.textContent = paused ? 'Play animation' : 'Pause animation';
-    toggle.setAttribute('aria-pressed', String(paused));
+    const shouldRun = !reducedMotion.matches && !document.hidden && inView;
     engine.interactivity.events.onhover.enable = shouldRun;
     engine.interactivity.events.onclick.enable = shouldRun;
     if (running === shouldRun) return;
@@ -75,7 +70,6 @@
     if (available) pushParticles(Math.min(count, available), position);
   };
 
-  toggle.addEventListener('click', () => { paused = !paused; syncMotion(); });
   reducedMotion.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
   new MutationObserver(updateColors).observe(document.documentElement, {

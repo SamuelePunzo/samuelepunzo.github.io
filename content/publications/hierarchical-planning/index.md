@@ -21,6 +21,11 @@ tags:
   - "Robotics"
   - "Representation Learning"
 featured: true
+image:
+  figure: true
+  alt_text: "Hi-LeWM training architecture combining a frozen world-model encoder, a latent macro-action encoder, and a high-level predictor."
+  caption: "Hi-LeWM training architecture. [Figure 4 from the paper](https://arxiv.org/html/2607.12547v2#A2.F4)."
+  preview_only: false
 links:
   - type: pdf
     url: https://arxiv.org/pdf/2607.12547

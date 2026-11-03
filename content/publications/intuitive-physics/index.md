@@ -21,6 +21,11 @@ tags:
   - "World Models"
   - "Representation Learning"
 featured: true
+image:
+  figure: true
+  alt_text: "Comparison of intuitive-physics probes across V-JEPA, VideoMAE, and LTX-Video on IntPhys2 and MVP."
+  caption: "Intuitive-physics probe comparison across model families. [Figure 3 from the paper](https://arxiv.org/html/2606.09646v3#S6.F3)."
+  preview_only: false
 links:
   - type: pdf
     url: https://arxiv.org/pdf/2606.09646

@@ -18,6 +18,11 @@ tags:
   - "NLP"
   - "Circuit Discovery"
 featured: true
+image:
+  figure: true
+  alt_text: "Animacy circuit discovery and evaluation pipeline, from sentence prefixes to causal circuits and transfer tasks."
+  caption: "Circuit discovery and evaluation pipeline. [Figure 1 from the paper](https://arxiv.org/html/2607.20995v2#S0.F1)."
+  preview_only: false
 links:
   - type: pdf
     url: https://arxiv.org/pdf/2607.20995
