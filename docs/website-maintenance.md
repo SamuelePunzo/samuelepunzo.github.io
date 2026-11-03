@@ -67,6 +67,11 @@ Header sizing and the path are styled in `assets/css/custom.css`; the about
 and Research goals section padding is configured in `content/_index.md`.
 
 Alternating section backgrounds begin at Research goals: shaded research goals,
-plain publications, shaded experience, and plain awards. The first five authors
+plain publications, then shaded experience. Awards are not shown on the homepage. The first five authors
 of the intuitive-physics and hierarchical-planning papers are marked as equal
 contributors, as confirmed by the site owner.
+
+Hover interaction listens across the whole About area, including text and links,
+and maps pointer coordinates to the canvas pixels. It clears on mouse leave,
+scroll, and paused/reduced-motion states. The footer credits Giulio Nisi and
+links to his website.

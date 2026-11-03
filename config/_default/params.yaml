@@ -109,7 +109,7 @@ hugoblox:
     style: minimal                      # minimal | columns | centered
     language_switcher: true
     # Custom footer text (HTML supported)
-    text: "Layout inspired by <a href='https://agarciacast.github.io/' target='_blank' rel='noopener' class='hover:underline'>Alejandro García-Castillón</a>."
+    text: "Layout inspired by <a href='https://agarciacast.github.io/' target='_blank' rel='noopener' class='hover:underline'>Alejandro García-Castillón</a> and animation by <a href='https://giulionisi.me/' target='_blank' rel='noopener' class='hover:underline'>Giulio Nisi</a>."
 
   # ────────────────────────────────────────────────────────────────────────────
   # COPYRIGHT

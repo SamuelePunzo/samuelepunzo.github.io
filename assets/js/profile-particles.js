@@ -3,7 +3,8 @@
  */
 (() => {
   const container = document.getElementById('profile-particles');
-  if (!container || typeof window.particlesJS !== 'function') return;
+  const about = document.getElementById('about-container');
+  if (!container || !about || typeof window.particlesJS !== 'function') return;
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = () => document.documentElement.classList.contains('dark')
@@ -41,6 +42,7 @@
     const shouldRun = !reducedMotion.matches && !document.hidden && inView;
     engine.interactivity.events.onhover.enable = shouldRun;
     engine.interactivity.events.onclick.enable = shouldRun;
+    if (!shouldRun) clearHover();
     if (running === shouldRun) return;
     running = shouldRun;
     engine.particles.move.enable = shouldRun;
@@ -48,6 +50,33 @@
     engine.fn.drawAnimFrame = null;
     if (shouldRun) engine.fn.vendors.draw();
   }
+
+  function clearHover() {
+    engine.interactivity.mouse.pos_x = null;
+    engine.interactivity.mouse.pos_y = null;
+    engine.interactivity.status = 'mouseleave';
+  }
+
+  // Text and links sit above the canvas. Their mouse events bubble through
+  // the About area without preventing text selection or normal link clicks.
+  about.addEventListener('mousemove', event => {
+    if (!running) return;
+    const canvas = engine.canvas.el;
+    const bounds = canvas.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
+    if (!bounds.width || !bounds.height || x < 0 || y < 0 || x > bounds.width || y > bounds.height) {
+      clearHover();
+      return;
+    }
+    // Map viewport coordinates to the canvas backing pixels, including retina
+    // scaling. Child-relative offsetX/offsetY would jump when crossing text.
+    engine.interactivity.mouse.pos_x = x * canvas.width / bounds.width;
+    engine.interactivity.mouse.pos_y = y * canvas.height / bounds.height;
+    engine.interactivity.status = 'mousemove';
+  }, { passive: true });
+  about.addEventListener('mouseleave', clearHover);
+  window.addEventListener('scroll', clearHover, { passive: true });
 
   function updateColors() {
     const next = palette();

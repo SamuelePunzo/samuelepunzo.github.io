@@ -75,11 +75,5 @@ sections:
       css_class: 'bg-zinc-50 dark:bg-zinc-900/50'
       date_format: 'January 2006'
       is_education_first: false
-  - block: resume-awards
-    content:
-      title: Awards
-      username: me
-    design:
-      columns: '1'
 
 ---

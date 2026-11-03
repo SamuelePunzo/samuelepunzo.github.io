@@ -31,4 +31,4 @@ social:
 highlight_name: true
 ---
 
-HI! I am a master's Artificial Intelligence student at the University of Amsterdam and a Research Assistant at the Institute for Logic, Language and Computation (ILLC). My research focuses on mechanistic interpretability and AI Safety. My long-term goals are to discover robust explanations about how multimodal LLM reason and transfer them to actionable methods for improving model reliability, oversight, and safety.
+HI! I'm Samuele, a master's Artificial Intelligence student at the University of Amsterdam and a Research Assistant at the Institute for Logic, Language and Computation (ILLC). My research focuses on mechanistic interpretability and AI Safety. My long-term goals are to discover robust explanations about how multimodal LLM reason and transfer them to actionable methods for improving model reliability, oversight, and safety.
