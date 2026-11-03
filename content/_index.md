@@ -50,10 +50,14 @@ sections:
     id: papers
     content:
       title: Publications
+      text: 'See my [Google Scholar profile](https://scholar.google.com/citations?user=uBrcokoAAAAJ&hl=en) for the latest publications and citations.'
+      count: 0
+      sort_by: Date
+      sort_ascending: false
       filters:
         folders:
           - publications
-        featured_only: true
+        featured_only: false
     design:
       view: compact
       columns: 1

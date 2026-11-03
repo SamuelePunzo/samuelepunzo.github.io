@@ -9,6 +9,13 @@
       <a href="{{ $item.RelPermalink }}" class="hover:underline">{{ $item.Title }}</a>
     </h3>
     
+    <div class="publication-venue text-sm text-primary-600 dark:text-primary-400 mb-3">
+      <time datetime="{{ $item.Date.Format "2006-01-02" }}">{{ $item.Date.Format "2006" }}</time>
+      {{ with $item.Params.publication_short | default $item.Params.publication }}
+        <span aria-hidden="true"> &middot; </span>{{ . | markdownify }}
+      {{ end }}
+    </div>
+
     {{ with partial "functions/get_summary" $item }}
     <div class="text-gray-700 dark:text-gray-300 text-base mb-3 line-clamp-2">
       {{ . | markdownify }}

@@ -8,12 +8,20 @@
 {{ $profile := partial "functions/get_author_profile" $author }}
 
 <div id="about-container" class="resume-biography pb-8 px-4 sm:pb-12 md:pb-16 lg:pb-24 relative" style="margin-top: -120px;">
-  <canvas id="nn-canvas" class="absolute inset-0 w-full h-full hidden md:block" style="z-index: 0; pointer-events: auto;"></canvas>
+  <div id="profile-particles" aria-hidden="true"></div>
   <div class="max-w-7xl mx-auto relative z-10" style="pointer-events: none; padding-top: 140px;">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start" style="pointer-events: auto;">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start" >
       
       {{/* Left Column */}}
-      <div class="md:col-span-4 flex flex-col items-center text-center space-y-4 pt-4 sm:pt-8 md:pt-10 lg:pt-12">
+      <div class="profile-column md:col-span-4 flex flex-col items-center text-center space-y-4 pt-4 sm:pt-8 md:pt-10 lg:pt-12">
+        {{/* The homepage profile uses assets/media/authors/bio.jpg (or .png/.webp). */}}
+        {{ with $profile.avatar }}
+          {{ $portrait := . }}
+          {{ if reflect.IsImageResourceProcessable . }}
+            {{ $portrait = .Fill "400x400 Center webp" }}
+          {{ end }}
+          <img src="{{ $portrait.RelPermalink }}" alt="Portrait of {{ $profile.title }}" width="200" height="200" class="profile-portrait" fetchpriority="high" decoding="async">
+        {{ end }}
         {{/* Name */}}
         <h1 class="text-4xl sm:text-5xl font-normal text-gray-900 dark:text-white mb-2">
           {{ $profile.title }}
@@ -64,7 +72,7 @@
       </div>
 
       {{/* Right Column */}}
-      <div class="md:col-span-8 space-y-8 md:-mt-2 lg:-mt-4">
+      <div class="profile-column md:col-span-8 space-y-8 md:-mt-2 lg:-mt-4">
         {{/* About Me */}}
         <div>
           <h2 class="text-4xl font-normal text-gray-900 dark:text-white mb-6">About me</h2>
@@ -126,248 +134,9 @@
       </div>
     </div>
   </div>
+  <button id="particle-motion-toggle" type="button" aria-controls="profile-particles" aria-pressed="false" hidden>Pause animation</button>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Only run the neural network on non-mobile screens (md breakpoint = 768px)
-    if (window.innerWidth < 768) return;
-
-    const canvas = document.getElementById('nn-canvas');
-    const container = document.getElementById('about-container');
-    if (!canvas || !container) return;
-    const ctx = canvas.getContext('2d');
-
-    // 1. Initialize Offscreen Canvas First
-    let staticCanvas = document.createElement('canvas');
-    let sCtx = staticCanvas.getContext('2d');
-
-    let width, height;
-    let nodes = [];
-    let edges = [];
-    let signals = [];
-
-    const numLayers = 5;
-    const nodesPerLayer = 10;
-
-    // 2. Define Core Functions
-    function initNetwork() {
-        nodes = [];
-        edges = [];
-        signals = [];
-
-        const layerWidth = width / (numLayers - 1);
-        
-        // Create nodes
-        for (let l = 0; l < numLayers; l++) {
-            let layerNodes = [];
-            for (let i = 0; i < nodesPerLayer; i++) {
-                let basePathX = l * layerWidth;
-                let basePathY = (height / nodesPerLayer) * i + (height / nodesPerLayer) / 2;
-                
-                let jitterX = (Math.random() - 0.5) * (layerWidth * 0.3);
-                let jitterY = (Math.random() - 0.5) * (height / nodesPerLayer * 0.6);
-                
-                layerNodes.push({
-                    x: Math.max(0, Math.min(width, basePathX + jitterX)),
-                    y: Math.max(0, Math.min(height, basePathY + jitterY)),
-                    outgoingEdges: []
-                });
-            }
-            nodes.push(layerNodes);
-        }
-
-        // Create edges
-        for (let l = 0; l < numLayers - 1; l++) {
-            for (let n1 of nodes[l]) {
-                for (let n2 of nodes[l + 1]) {
-                    let edge = { from: n1, to: n2 };
-                    edges.push(edge);
-                    n1.outgoingEdges.push(edge);
-                }
-            }
-        }
-    }
-
-    function buildStaticCanvas() {
-        staticCanvas.width = canvas.width;
-        staticCanvas.height = canvas.height;
-        sCtx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
-const isDark = document.documentElement.classList.contains('dark');
-        
-        // Increased the opacity for the light mode colors (the second value in the rgba)
-        const edgeColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'; // bumped from 0.06 to 0.15
-        const nodeColor = isDark ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)';  // bumped from 0.3 to 0.6
-
-        // Draw edges to static canvas
-        sCtx.strokeStyle = edgeColor;
-        sCtx.lineWidth = 1;
-        sCtx.beginPath();
-        for (let edge of edges) {
-            sCtx.moveTo(edge.from.x, edge.from.y);
-            sCtx.lineTo(edge.to.x, edge.to.y);
-        }
-        sCtx.stroke();
-
-        // Draw nodes to static canvas
-        sCtx.fillStyle = nodeColor;
-        for (let l = 0; l < nodes.length; l++) {
-            for (let n of nodes[l]) {
-                sCtx.beginPath();
-                sCtx.arc(n.x, n.y, 2, 0, Math.PI * 2);
-                sCtx.fill();
-            }
-        }
-    }
-
-    // 3. Define Resize (Only Once!)
-    function resize() {
-        width = container.offsetWidth;
-        height = container.offsetHeight;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        
-        initNetwork();
-        buildStaticCanvas();
-    }
-
-    // 4. Kickstart the layout
-    window.addEventListener('resize', resize);
-    resize();
-
-    // 5. Interaction & Hover Effects
-    let mouse = { x: -1000, y: -1000 };
-    container.addEventListener('mousemove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-
-        for (let l = 0; l < nodes.length; l++) {
-            for (let n of nodes[l]) {
-                const dist = Math.hypot(n.x - mouse.x, n.y - mouse.y);
-                const now = Date.now();
-                if (dist < 15 && (!n.lastTriggered || now - n.lastTriggered > 3000)) {
-                    n.lastTriggered = now;
-                    // const color = '#ff7b00';
-                    const color = "225, 171, 32"; // The RGB exact match for #E1AB20
-                    triggerSignals(n, color, 1.0);
-                }
-            }
-        }
-    });
-
-    function triggerSignals(node, color, power) {
-        if (power <= 0 || node.outgoingEdges.length === 0) return;
-        
-        let shuffledEdges = [...node.outgoingEdges].sort(() => 0.5 - Math.random());
-        let N = shuffledEdges.length;
-        let numToFire;
-
-        if (N <= 1) {
-            numToFire = N;
-        } else {
-            const lambda = 0.9;
-            let weights = [];
-            for (let k = 2; k <= N; k++) {
-                weights.push(Math.exp(-lambda * (k - 2)));
-            }
-            weights[weights.length - 1] = Math.max(weights[weights.length - 1], 0.1 * weights[0]);
-
-            let wSum = weights.reduce((a, b) => a + b, 0);
-            let r = Math.random();
-            let cumulative = 0;
-            numToFire = N; 
-            for (let i = 0; i < weights.length; i++) {
-                cumulative += weights[i] / wSum;
-                if (r <= cumulative) { numToFire = i + 2; break; }
-            }
-        }
-
-        let edgesToFire = shuffledEdges.slice(0, numToFire);
-
-        for (let edge of edgesToFire) {
-            signals.push({
-                edge: edge,
-                progress: 0,
-                color: color,
-                power: power,
-                speed: 0.105,
-                fading: false,
-                alpha: 1.0
-            });
-        }
-    }
-
-    // 6. Animation Loop
-    const TARGET_FPS = 30;
-    const FRAME_INTERVAL = 1000 / TARGET_FPS;
-    let lastFrameTime = 0;
-
-    function draw(timestamp) {
-        requestAnimationFrame(draw);
-
-        if (timestamp - lastFrameTime < FRAME_INTERVAL) return;
-        lastFrameTime = timestamp;
-
-        // Blit static background
-        ctx.clearRect(0, 0, width, height);
-        ctx.drawImage(staticCanvas, 0, 0, width, height);
-
-        // Draw active signals
-        for (let i = signals.length - 1; i >= 0; i--) {
-            let s = signals[i];
-            
-            if (!s.fading) {
-                s.progress += s.speed;
-                if (s.progress >= 1) {
-                    s.progress = 1;
-                    s.fading = true;
-                    triggerSignals(s.edge.to, s.color, s.power - 0.2);
-                }
-            } else {
-                s.alpha -= 0.07;
-                if (s.alpha <= 0) {
-                    signals.splice(i, 1);
-                    continue;
-                }
-            }
-
-            const currentX = s.edge.from.x + (s.edge.to.x - s.edge.from.x) * s.progress;
-            const currentY = s.edge.from.y + (s.edge.to.y - s.edge.from.y) * s.progress;
-
-            ctx.beginPath();
-            ctx.moveTo(s.edge.from.x, s.edge.from.y);
-            ctx.lineTo(currentX, currentY);
-            
-            ctx.strokeStyle = `rgba(${s.color}, ${s.alpha * 0.3})`;
-            ctx.lineWidth = (2 * s.power) + 4;
-            ctx.stroke();
-
-            ctx.strokeStyle = `rgba(${s.color}, ${s.alpha})`;
-            ctx.lineWidth = 2 * s.power;
-            ctx.stroke();
-        }
-    }
-
-// --- NEW CODE: Theme Toggle Watcher ---
-    // Watch for Dark/Light mode toggles and redraw the static canvas
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            // Check if the class or data-theme attribute changed on the HTML tag
-            if (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme') {
-                // Redraw the static background with the new light/dark colors
-                buildStaticCanvas(); 
-            }
-        });
-    });
-    
-    // Start observing the <html> tag for attribute changes
-    observer.observe(document.documentElement, { attributes: true });
-    // --------------------------------------
-
-    // Start animation loop
-    requestAnimationFrame(draw);
-});
-</script>
+<script defer src="{{ "js/vendor/particles.js" | relURL }}"></script>
+{{ $particles := resources.Get "js/profile-particles.js" | minify | fingerprint }}
+<script defer src="{{ $particles.RelPermalink }}" integrity="{{ $particles.Data.Integrity }}"></script>

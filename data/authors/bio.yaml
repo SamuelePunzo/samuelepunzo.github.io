@@ -24,6 +24,9 @@ affiliations:
     url: https://www.illc.uva.nl/
 
 links:
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=uBrcokoAAAAJ&hl=en
+    label: Google Scholar
   - icon: at-symbol
     url: mailto:samuelepunzo@gmail.com
     label: E-mail Me

@@ -16,10 +16,10 @@ author_notes:
 date: '2026-03-31T00:00:00Z'
 publishDate: '2026-03-31T00:00:00Z'
 
-publication_types: ['article']
+publication_types: ['paper-conference']
 
-publication: 'arXiv preprint'
-publication_short: 'arXiv'
+publication: 'Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing'
+publication_short: 'EMNLP 2026'
 
 abstract: "Standard evaluations of Large language models (LLMs) focus on task performance, offering limited insight into whether correct behavior reflects appropriate underlying mechanisms and risking confirmation bias. We introduce a simple, principled interpretability framework based on token-level perplexity to test whether models rely on linguistically relevant cues. By comparing perplexity distributions over minimal sentence pairs differing in one or a few `pivotal' tokens, our method enables precise, hypothesis-driven analysis without relying on unstable feature-attribution techniques. Experiments on controlled linguistic benchmarks with several open-weight LLMs show that, while linguistically important tokens influence model behavior, they never fully explain perplexity shifts, revealing that models rely on heuristics other than the expected linguistic ones."
 
@@ -35,7 +35,12 @@ featured: true
 
 links:
   - type: pdf
-    url: https://arxiv.org/pdf/2603.29396
+    url: https://aclanthology.org/2026.emnlp-main.110.pdf
+  - type: site
+    label: ACL Anthology
+    url: https://aclanthology.org/2026.emnlp-main.110/
+  - type: preprint
+    url: https://arxiv.org/abs/2603.29396
 
 image:
   caption: ''
