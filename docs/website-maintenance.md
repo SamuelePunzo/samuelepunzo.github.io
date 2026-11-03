@@ -75,3 +75,17 @@ Hover interaction listens across the whole About area, including text and links,
 and maps pointer coordinates to the canvas pixels. It clears on mouse leave,
 scroll, and paused/reduced-motion states. The footer credits Giulio Nisi and
 links to his website.
+
+## Combined experience and education path
+
+The full Experience block merges `experience` and `education` from
+`data/authors/me.yaml`, sorted by start date. On desktop, numbered stops rise
+from the bottom left to the top right; on narrow screens they read from top
+to bottom in chronological order. Every description is rendered in full.
+The local `resume-experience` block, `assets/js/experience-journey.js`, and
+the journey styles in `assets/css/custom.css` implement the route. The SVG
+is decorative and recalculated when the layout or fonts resize. Education
+with a future end date is marked In progress; open-ended roles are Current.
+
+The downloadable `static/uploads/resume.pdf` was replaced with the owner's
+supplied `CV_SamuelePunzo_academia.pdf` on 2026-11-03.

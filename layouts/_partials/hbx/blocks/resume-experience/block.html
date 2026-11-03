@@ -1,0 +1,52 @@
+{{/* One chronological journey for work and education; content stays in author data. */}}
+{{ $page := .wcPage }}
+{{ $block := .wcBlock }}
+{{ $profile := partial "functions/get_author_profile" ($block.content.username | default "me") }}
+{{ $dateFormat := $block.design.date_format | default "January 2006" }}
+{{ $stops := slice }}
+{{ range $profile.experience }}
+  {{ $stops = $stops | append (dict "title" .role "org" .org "start" .start "end" .end "summary" .summary "kind" "Experience") }}
+{{ end }}
+{{ range $profile.education }}
+  {{ $stops = $stops | append (dict "title" .degree "org" .institution "start" .start "end" .end "summary" .summary "kind" "Education") }}
+{{ end }}
+{{ $stops = sort $stops "start" "asc" }}
+{{ $count := len $stops }}
+
+<div class="experience-layout">
+  <header class="journey-heading">
+    <h2>Experience &amp; education</h2>
+  </header>
+  <div class="experience-journey" data-experience-journey>
+    <svg class="journey-route" aria-hidden="true" focusable="false">
+      <path class="journey-route-halo" />
+      <path class="journey-route-line" />
+    </svg>
+    <ol class="journey-list" aria-label="Experience and education, in chronological start order">
+      {{ range $index, $stop := $stops }}
+        {{ $position := add 7 (mul 86 (div (float $index) (float (math.Max 1 (sub $count 1)))) ) }}
+        {{ $active := not $stop.end }}
+        {{ with $stop.end }}{{ $active = (time .).After now }}{{ end }}
+        <li class="journey-step{{ if ge $position 50 }} journey-step-left{{ end }}{{ if $active }} journey-step-current{{ end }}" style="--stop-position: {{ $position }}%;" data-start="{{ $stop.start }}">
+          <span class="journey-stop" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+          <article class="journey-card">
+            <div class="journey-card-meta">
+              <span class="journey-kind">{{ $stop.kind }}</span>
+              {{ if $active }}<span class="current-role-badge">{{ if eq $stop.kind "Education" }}In progress{{ else }}Current{{ end }}</span>{{ end }}
+            </div>
+            <h3>{{ $stop.title }}</h3>
+            <p class="journey-org">{{ $stop.org }}</p>
+            <p class="journey-dates">
+              <time datetime="{{ $stop.start }}">{{ time.Format $dateFormat $stop.start }}</time>
+              <span aria-hidden="true"> &ndash; </span>
+              {{ with $stop.end }}<time datetime="{{ . }}">{{ time.Format $dateFormat . }}</time>{{ else }}Present{{ end }}
+            </p>
+            {{ with $stop.summary }}<div class="journey-summary">{{ . | $page.RenderString }}</div>{{ end }}
+          </article>
+        </li>
+      {{ end }}
+    </ol>
+  </div>
+</div>
+{{ $journey := resources.Get "js/experience-journey.js" | minify | fingerprint }}
+<script defer src="{{ $journey.RelPermalink }}" integrity="{{ $journey.Data.Integrity }}"></script>

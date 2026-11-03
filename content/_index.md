@@ -18,7 +18,7 @@ sections:
       # Show a call-to-action button under your biography? (optional)
       button:
         text: Download CV
-        url: uploads/resume.pdf
+        url: uploads/resume.pdf?v=3c9547e82f4b
       headings:
         about: ''
         research_experience: 'Research Experience'
