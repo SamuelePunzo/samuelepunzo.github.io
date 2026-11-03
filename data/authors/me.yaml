@@ -59,6 +59,8 @@ experience:
     summary: |
       Locating refusal circuits in encoder-free models under the supervision of Alessandro Suglia (University of Edinburgh) and Francesco Pinto (Google DeepMind).
   - role: Visiting Researcher
+    lab: Explainable Machine Learning group
+    supervisor: Prof. Jonas Fischer
     org: Max Planck Institute for Informatics (MPI-INF)
     org_short: Max Planck Institute for Informatics
     start: 2026-07-01
@@ -66,6 +68,8 @@ experience:
     summary: |
       Conducted research in the Explainable Machine Learning group with Prof. Jonas Fischer. Explored vision-language models for 3D scenes using sparse autoencoders to extract concepts and identify spatially grounded representations for interpretable downstream tasks.
   - role: Research Assistant
+    lab: MULINI lab
+    supervisor: Prof. Sandro Pezzelle
     org: Institute for Logic, Language and Computation (ILLC) — University of Amsterdam
     org_short: ILLC, University of Amsterdam
     start: 2026-01-01
@@ -79,7 +83,9 @@ experience:
     summary: |
       Delivered two exercise lectures and one project session per week, guiding 10 groups of students through the development of their machine learning projects.
   - role: Research Assistant
-    org: BioMedical and Health Informatics Lab — University of Pisa
+    lab: BioMedical and Health Informatics Lab
+    supervisor: Prof. Alina Sîrbu
+    org: University of Pisa
     org_short: University of Pisa · BioMedical and Health Informatics Lab
     start: 2024-11-01
     end: 2025-11-30

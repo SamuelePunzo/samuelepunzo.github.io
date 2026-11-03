@@ -81,7 +81,9 @@ links to his website.
 The full Experience block merges `experience` and `education` from
 `data/authors/me.yaml`, sorted by start date. On desktop, numbered stops rise
 from the bottom left to the top right; on narrow screens they read from top
-to bottom in chronological order. Every description is rendered in full.
+to bottom in chronological order. Cards show titles, institutions, and dates;
+long descriptions remain in the author data and CV. The `lab` and `supervisor`
+fields expand the titles of research assistant and visiting researcher roles.
 The local `resume-experience` block, `assets/js/experience-journey.js`, and
 the journey styles in `assets/css/custom.css` implement the route. The SVG
 is decorative and recalculated when the layout or fonts resize. Education

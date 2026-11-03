@@ -1,14 +1,15 @@
 {{/* One chronological journey for work and education; content stays in author data. */}}
-{{ $page := .wcPage }}
 {{ $block := .wcBlock }}
 {{ $profile := partial "functions/get_author_profile" ($block.content.username | default "me") }}
 {{ $dateFormat := $block.design.date_format | default "January 2006" }}
 {{ $stops := slice }}
 {{ range $profile.experience }}
-  {{ $stops = $stops | append (dict "title" .role "org" .org "start" .start "end" .end "summary" .summary "kind" "Experience") }}
+  {{ $title := .role }}
+  {{ if .lab }}{{ $title = printf "%s in %s (%s)" $title .lab .supervisor }}{{ end }}
+  {{ $stops = $stops | append (dict "title" $title "org" .org "start" .start "end" .end "kind" "Experience") }}
 {{ end }}
 {{ range $profile.education }}
-  {{ $stops = $stops | append (dict "title" .degree "org" .institution "start" .start "end" .end "summary" .summary "kind" "Education") }}
+  {{ $stops = $stops | append (dict "title" .degree "org" .institution "start" .start "end" .end "kind" "Education") }}
 {{ end }}
 {{ $stops = sort $stops "start" "asc" }}
 {{ $count := len $stops }}
@@ -41,7 +42,6 @@
               <span aria-hidden="true"> &ndash; </span>
               {{ with $stop.end }}<time datetime="{{ . }}">{{ time.Format $dateFormat . }}</time>{{ else }}Present{{ end }}
             </p>
-            {{ with $stop.summary }}<div class="journey-summary">{{ . | $page.RenderString }}</div>{{ end }}
           </article>
         </li>
       {{ end }}
