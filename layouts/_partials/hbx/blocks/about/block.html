@@ -49,7 +49,14 @@
           {{ range $profile.links }}
             {{ $url := .url | default .link }}
             <a href="{{ $url }}" target="_blank" rel="noopener" aria-label="{{ .label | default .icon }}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-              {{ partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-6 h-6'") }}
+              {{ $socialIcon := partial "functions/get_icon" (dict "name" .icon "attributes" "class='w-6 h-6'") }}
+              {{/* Center the visible glyphs, accounting for whitespace in these icon packs. */}}
+              {{ if eq .icon "academicons/google-scholar" }}
+                {{ $socialIcon = replace $socialIcon `viewBox="0 0 512 512"` `viewBox="0 64 384 384"` }}
+              {{ else if eq .icon "at-symbol" }}
+                {{ $socialIcon = replace $socialIcon `viewBox="0 0 24 24"` `viewBox="2 2 20 20"` }}
+              {{ end }}
+              {{ $socialIcon | safeHTML }}
             </a>
           {{ end }}
         </div>
