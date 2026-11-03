@@ -8,6 +8,13 @@ authors:
   - "F. Massafra"
   - "S. Lo Sardo"
   - "M. Salehi"
+author_notes:
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+
 date: '2026-06-08T00:00:00Z'
 publishDate: '2026-06-08T00:00:00Z'
 publication_types: ['paper-conference']

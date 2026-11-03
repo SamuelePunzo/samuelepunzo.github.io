@@ -50,7 +50,7 @@ has been changed.
 
 ## Research overview and article figures
 
-The introduction is in the author data files. The My Research section in
+The introduction is in the author data files. The Research goals section in
 `content/_index.md` follows the owner's research proposal, separating completed
 work from future research goals. The private proposal and CV are not published.
 
@@ -64,4 +64,9 @@ render as superscript asterisks, with the explanation retained for accessibility
 The homepage interests sit between the social links and CV button. Research
 roles appear as connected stops, newest first, with a filled current-role marker.
 Header sizing and the path are styled in `assets/css/custom.css`; the about
-and My Research section padding is configured in `content/_index.md`.
+and Research goals section padding is configured in `content/_index.md`.
+
+Alternating section backgrounds begin at Research goals: shaded research goals,
+plain publications, shaded experience, and plain awards. The first five authors
+of the intuitive-physics and hierarchical-planning papers are marked as equal
+contributors, as confirmed by the site owner.

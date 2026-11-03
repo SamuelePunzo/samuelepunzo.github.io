@@ -37,7 +37,7 @@ sections:
   - block: markdown
     id: research
     content:
-      title: '📚 My Research'
+      title: 'Research goals'
       subtitle: ''
       text: |-
         My research asks how we can develop robust explanations of model behavior and turn them into practical improvements in reliability, oversight, and safety. I am particularly interested in three connected directions:
@@ -49,7 +49,7 @@ sections:
         **Mechanistic interpretability for AI safety.** At SPAR, I investigate refusal circuits in encoder-free models. A longer-term goal is to understand how refusal mechanisms emerge and change during reinforcement learning from human feedback, and when they influence a model's response. I want to use these insights to inform alignment methods and improve oversight and safeguards while preserving useful capabilities.
     design:
       columns: '1'
-      css_class: 'wide-content'
+      css_class: 'wide-content bg-zinc-50 dark:bg-zinc-900/50'
       spacing:
         padding: ['1.5rem', '0', '4rem', '0']
   - block: collection
@@ -67,12 +67,12 @@ sections:
     design:
       view: compact
       columns: 1
-      css_class: 'bg-zinc-50 dark:bg-zinc-900/50'
   - block: resume-experience
     id: experience
     content:
       username: me
     design:
+      css_class: 'bg-zinc-50 dark:bg-zinc-900/50'
       date_format: 'January 2006'
       is_education_first: false
   - block: resume-awards
@@ -81,6 +81,5 @@ sections:
       username: me
     design:
       columns: '1'
-      css_class: 'bg-zinc-50 dark:bg-zinc-900/50'
 
 ---

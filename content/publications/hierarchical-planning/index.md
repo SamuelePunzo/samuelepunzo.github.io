@@ -8,6 +8,13 @@ authors:
   - "S. Lo Sardo"
   - "I. Pantelidis"
   - "S. K. Bhethanabhotla"
+author_notes:
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+  - 'Equal contribution'
+
 date: '2026-07-14T00:00:00Z'
 publishDate: '2026-07-14T00:00:00Z'
 publication_types: ['paper-conference']

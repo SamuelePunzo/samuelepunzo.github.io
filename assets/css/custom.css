@@ -5,35 +5,27 @@ html {
   font-size: 17px !important;
 }
 
-/* Wider content area for research section to be exactly 70% width */
+/* Keep the research background full width and its text comfortably readable. */
 .wide-content {
   width: 100% !important;
   max-width: 100% !important;
   padding-left: 1rem !important;
   padding-right: 1rem !important;
-  margin-left: auto;
-  margin-right: auto;
 }
-
-@media (min-width: 768px) {
-  .wide-content {
-    width: 80% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  .wide-content {
-    width: 70% !important;
-  }
-}
-
-.wide-content > div,
-.wide-content .hb-section-heading-group,
-.wide-content .prose {
+.wide-content > div:not(.home-section-bg) {
+  width: 100%;
   max-width: 100% !important;
+  margin-inline: auto;
 }
+@media (min-width: 768px) {
+  .wide-content { padding-inline: 0 !important; }
+  .wide-content > div:not(.home-section-bg) { width: 80%; }
+}
+@media (min-width: 1024px) {
+  .wide-content > div:not(.home-section-bg) { width: 70%; }
+}
+.wide-content .hb-section-heading-group,
+.wide-content .prose { max-width: 100% !important; }
 
 /* The linked-particle background stays behind the biography and its links. */
 #about-container {
