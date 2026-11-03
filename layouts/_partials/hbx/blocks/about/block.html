@@ -7,13 +7,13 @@
 {{ $author := index $content "username" | default "me" }}
 {{ $profile := partial "functions/get_author_profile" $author }}
 
-<div id="about-container" class="resume-biography pb-8 px-4 sm:pb-12 md:pb-16 lg:pb-24 relative" style="margin-top: -120px;">
+<div id="about-container" class="resume-biography px-4 relative">
   <div id="profile-particles" aria-hidden="true"></div>
-  <div class="max-w-7xl mx-auto relative z-10" style="pointer-events: none; padding-top: 140px;">
+  <div class="profile-layout max-w-7xl mx-auto relative z-10">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
       
       {{/* Left Column */}}
-      <div class="profile-column md:col-span-4 flex flex-col items-center text-center space-y-4 pt-4 sm:pt-8 md:pt-0">
+      <div class="profile-column profile-sidebar md:col-span-4 flex flex-col items-center text-center">
         {{/* The homepage profile uses assets/media/authors/bio.jpg (or .png/.webp). */}}
         {{ with $profile.avatar }}
           {{ $portrait := . }}
@@ -23,18 +23,18 @@
           <img src="{{ $portrait.RelPermalink }}" alt="Portrait of {{ $profile.title }}" width="160" height="160" class="profile-portrait" fetchpriority="high" decoding="async">
         {{ end }}
         {{/* Name */}}
-        <h1 class="text-4xl sm:text-5xl font-normal text-gray-900 dark:text-white mb-2">
+        <h1 class="profile-name text-4xl sm:text-5xl font-normal text-gray-900 dark:text-white">
           {{ $profile.title }}
         </h1>
         
         {{/* Role */}}
         {{ with $profile.role }}
-          <div class="text-xl text-gray-600 dark:text-gray-400 font-light mb-1">{{ . | markdownify }}</div>
+          <div class="profile-role text-xl text-gray-600 dark:text-gray-400 font-light">{{ . | markdownify }}</div>
         {{ end }}
         
         {{/* Affiliations */}}
         {{ range $profile.affiliations }}
-          <div class="text-lg text-primary-600 dark:text-primary-400 mb-4">
+          <div class="profile-affiliation text-lg text-primary-600 dark:text-primary-400">
             {{ if .url }}
               <a href="{{ .url }}" target="_blank" rel="noopener" class="hover:underline">{{ .name | default .title }}</a>
             {{ else }}
@@ -45,7 +45,7 @@
         
         {{/* Social Links */}}
         {{ if gt (len $profile.links) 0 }}
-        <div class="flex flex-wrap justify-center gap-4 mt-6">
+        <div class="profile-socials flex flex-wrap justify-center gap-4">
           {{ range $profile.links }}
             {{ $url := .url | default .link }}
             <a href="{{ $url }}" target="_blank" rel="noopener" aria-label="{{ .label | default .icon }}" class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
@@ -55,13 +55,23 @@
         </div>
         {{ end }}
 
+        {{/* Interests sit between the social links and CV. */}}
+        {{ with $profile.interests }}
+        <div class="profile-interests">
+          <h2 class="text-gray-900 dark:text-white">Research interests</h2>
+          <ul class="text-gray-700 dark:text-gray-300">
+            {{ range . }}<li>{{ . | markdownify }}</li>{{ end }}
+          </ul>
+        </div>
+        {{ end }}
+
         {{/* Action Button */}}
         {{ $button := index $content "button" }}
         {{ if and $button (reflect.IsMap $button) }}
           {{ $button_text := index $button "text" | default "Download CV" }}
           {{ $button_url := index $button "url" }}
           {{ if $button_url }}
-          <div class="mt-8">
+          <div class="profile-cv">
             <a href="{{ $button_url | safeURL }}" target="_blank" rel="noopener" class="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-lg shadow-sm transition-colors">
               {{ partial "functions/get_icon" (dict "name" "document-arrow-down" "attributes" "class='w-5 h-5'") }}
               <span class="ml-2">{{ $button_text }}</span>
@@ -72,7 +82,7 @@
       </div>
 
       {{/* Right Column */}}
-      <div class="profile-column md:col-span-8 space-y-8 md:-mt-2 lg:-mt-4">
+      <div class="profile-column profile-overview md:col-span-8">
         {{/* Introduction */}}
         <div>
           <div class="prose prose-xl dark:prose-invert text-gray-800 dark:text-gray-200 leading-relaxed max-w-none">
@@ -80,54 +90,32 @@
           </div>
         </div>
 
-        {{/* Interests and selected research experience */}}
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
-          
-          {{/* Interests */}}
-          {{ $interests := $profile.interests }}
-          {{ if gt (len $interests) 0 }}
-          <div>
-            <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Interests</h3>
-            <ul class="space-y-4 pl-0 list-none">
-              {{ range $interests }}
-              <li class="flex items-start">
-                <div class="flex-shrink-0 mt-1 mr-3 text-gray-500 dark:text-gray-400">
-                  {{ partial "functions/get_icon" (dict "name" "book-open" "attributes" "class='w-5 h-5'") }}
-                </div>
-                <span class="text-gray-700 dark:text-gray-300 text-lg">{{ . | markdownify }}</span>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-          {{ end }}
-
-          {{ $experience := $profile.experience }}
-          {{ if gt (len $experience) 0 }}
-          <div>
-            {{ $heading := "Research Experience" }}
-            {{ with $content.headings.research_experience }}{{ $heading = . }}{{ end }}
-            <h3 class="research-experience-heading text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ $heading }}</h3>
-            <ul class="research-experience-list">
-              {{ range $experience }}
-              {{ $isCurrent := not .end }}
-              <li class="research-experience-item{{ if $isCurrent }} is-current{{ end }}">
+        {{/* Research roles as connected stops, newest first. */}}
+        {{ with $profile.experience }}
+        <div class="research-path">
+          <h2 class="research-experience-heading font-bold text-gray-900 dark:text-white">{{ $content.headings.research_experience | default "Research Experience" }}</h2>
+          <ol class="research-experience-list" aria-label="Research experience, newest first">
+            {{ range . }}
+            {{ $isCurrent := not .end }}
+            <li class="research-experience-item{{ if $isCurrent }} is-current{{ end }}">
+              <span class="research-stop" aria-hidden="true"></span>
+              <div class="research-stop-heading">
                 <div class="research-experience-role text-gray-900 dark:text-gray-100">
                   <span>{{ .role }}</span>
                   {{ if $isCurrent }}<span class="current-role-badge">Current</span>{{ end }}
                 </div>
-                <div class="text-base text-gray-600 dark:text-gray-400 mt-1">{{ .org_short | default .org }}</div>
-                <div class="research-experience-dates text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <div class="research-experience-dates text-gray-500 dark:text-gray-400">
                   <time datetime="{{ .start }}">{{ time.Format "Jan 2006" .start }}</time>
                   &ndash;
                   {{ with .end }}<time datetime="{{ . }}">{{ time.Format "Jan 2006" . }}</time>{{ else }}Present{{ end }}
                 </div>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-          {{ end }}
-
+              </div>
+              <div class="research-experience-org text-gray-600 dark:text-gray-400">{{ .org_short | default .org }}</div>
+            </li>
+            {{ end }}
+          </ol>
         </div>
+        {{ end }}
 
       </div>
     </div>

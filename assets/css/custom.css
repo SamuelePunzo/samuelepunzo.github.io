@@ -73,56 +73,65 @@ html {
   .profile-portrait { width: 128px; height: 128px; }
 }
 
-.research-experience-heading {
-  font-size: 1.65rem;
+/* Compact navigation and profile spacing. */
+#site-header.header { padding-block: 0.4rem; }
+#site-header .navbar-brand { font-size: 1.05rem; }
+#site-header .nav-link { font-size: 0.92rem; padding-block: 0.55rem; }
+#site-header button, #site-header label[for="nav-toggle"] { min-height: 36px; }
+.profile-layout { pointer-events: none; }
+.profile-sidebar .profile-portrait { margin-bottom: 0.85rem; }
+.profile-name { margin: 0; }
+.profile-role { margin-top: 0.45rem; }
+.profile-affiliation { margin-top: 0.2rem; }
+.profile-socials { margin-top: 1rem; }
+.profile-interests { margin-top: 1.25rem; }
+.profile-interests h2 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.5rem; }
+.profile-interests ul { list-style: none; padding: 0; margin: 0; }
+.profile-interests li { font-size: 0.95rem; line-height: 1.5; margin-top: 0.25rem; }
+.profile-cv { margin-top: 1.25rem; }
+.profile-overview .prose > :first-child { margin-top: 0; }
+.research-path { margin-top: 1.75rem; }
+.research-experience-heading { font-size: 1.55rem; margin-bottom: 1.2rem; }
+.research-experience-list { list-style: none; margin: 0 0 0 0.45rem; padding: 0; }
+.research-experience-item { position: relative; padding: 0 0 1.4rem 1.65rem; }
+.research-experience-item:last-child { padding-bottom: 0; }
+.research-experience-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  bottom: -0.6rem;
+  width: 2px;
+  background: color-mix(in srgb, var(--color-primary-600) 25%, #e2e8f0);
 }
-
-.research-experience-list {
-  display: grid;
-  gap: 0.7rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.research-stop {
+  position: absolute;
+  top: 0.4rem;
+  left: -5px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-primary-600);
+  border-radius: 50%;
+  background: var(--hb-color-background, #fff);
 }
-
-.research-experience-item {
-  padding: 0.6rem 0.8rem;
-  border-left: 2px solid #cbd5e1;
+.is-current .research-stop {
+  background: var(--color-primary-600);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary-600) 12%, transparent);
 }
-
-.research-experience-item.is-current {
-  border-left-color: var(--color-primary-600);
-  border-radius: 0 0.35rem 0.35rem 0;
-  background: color-mix(in srgb, var(--color-primary-600) 5%, transparent);
-}
-
-.research-experience-role {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.65rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.current-role-badge {
-  padding: 0.12rem 0.45rem;
-  border-radius: 999px;
-  background: var(--color-primary-100);
-  color: var(--color-primary-800);
-  font-size: 0.65rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.dark .research-experience-item { border-left-color: #475569; }
-.dark .research-experience-item.is-current {
-  border-left-color: #fbbf24;
-  background: rgb(251 191 36 / 6%);
-}
-.dark .current-role-badge {
-  background: rgb(251 191 36 / 15%);
-  color: #fde68a;
+.research-stop-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; flex-wrap: wrap; }
+.research-experience-role { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; font-size: 1.05rem; font-weight: 600; }
+.research-experience-org { font-size: 0.95rem; margin-top: 0.2rem; }
+.research-experience-dates { font-size: 0.8rem; white-space: nowrap; }
+.current-role-badge { padding: 0.1rem 0.45rem; border-radius: 999px; background: var(--color-primary-100); color: var(--color-primary-800); font-size: 0.65rem; font-weight: 600; line-height: 1.4; }
+.dark .research-stop { border-color: var(--color-primary-400); }
+.dark .is-current .research-stop { background: var(--color-primary-400); box-shadow: 0 0 0 4px rgb(251 191 36 / 12%); }
+.dark .research-experience-item:not(:last-child)::before { background: #475569; }
+.dark .current-role-badge { background: rgb(251 191 36 / 15%); color: #fde68a; }
+.author-contribution { font-size: 0.75em; margin-left: 0.08em; }
+@media (max-width: 767px) {
+  .profile-overview { margin-top: 0.75rem; }
+  .research-stop-heading { display: block; }
+  .research-experience-dates { margin-top: 0.15rem; }
 }
 
 /* Preserve the full diagrams in publication previews. */

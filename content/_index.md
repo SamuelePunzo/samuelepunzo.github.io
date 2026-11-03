@@ -24,6 +24,8 @@ sections:
         research_experience: 'Research Experience'
         interests: ''
     design:
+      spacing:
+        padding: ['2rem', '0', '1.25rem', '0']
       background:
         gradient_mesh:
           enable: false
@@ -48,11 +50,13 @@ sections:
     design:
       columns: '1'
       css_class: 'wide-content'
+      spacing:
+        padding: ['1.5rem', '0', '4rem', '0']
   - block: collection
     id: papers
     content:
       title: Publications
-      text: 'See my [Google Scholar profile](https://scholar.google.com/citations?user=uBrcokoAAAAJ&hl=en) for the latest publications and citations.'
+      text: ''
       count: 0
       sort_by: Date
       sort_ascending: false

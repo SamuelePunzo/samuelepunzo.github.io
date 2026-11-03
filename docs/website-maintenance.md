@@ -8,7 +8,7 @@ on mobile. Replace this file to update the photo.
 
 ## Research experience
 
-The compact homepage list uses `data/authors/bio.yaml` → `experience`. It lists
+The compact homepage path uses `data/authors/bio.yaml` → `experience`. It lists
 research roles only; entries without an end date receive a Current badge. The
 full timeline uses `data/authors/me.yaml` and also includes teaching. Keep the
 two lists consistent. These roles and dates were checked against the supplied
@@ -57,5 +57,11 @@ work from future research goals. The private proposal and CV are not published.
 The three new publication bundles include original `featured.png` figures from
 their articles. The animacy overview is Figure 1, Hi-LeWM architecture is Figure
 4, and intuitive-physics comparison is Figure 3. Each image has a source link
-and descriptive alt text in its paper's front matter. Set `image.figure: true`
-to show the whole figure in a rectangular preview instead of a circular crop.
+and descriptive alt text in its paper's front matter. All publication previews
+use the same rectangular frame and preserve the complete image. Author notes
+render as superscript asterisks, with the explanation retained for accessibility.
+
+The homepage interests sit between the social links and CV button. Research
+roles appear as connected stops, newest first, with a filled current-role marker.
+Header sizing and the path are styled in `assets/css/custom.css`; the about
+and My Research section padding is configured in `content/_index.md`.

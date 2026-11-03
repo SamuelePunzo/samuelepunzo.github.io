@@ -35,25 +35,18 @@
 
   {{/* Right Side: Image */}}
   {{ $resource := partial "functions/get_featured_image.html" $item }}
-  {{ $anchor := "Center" }}
+  {{ $imageAlt := $item.Title | plainify }}
   {{ if and $item.Params.image (reflect.IsMap $item.Params.image) }}
-    {{ $anchor = $item.Params.image.focal_point | default "Center" }}
+    {{ $imageAlt = $item.Params.image.alt_text | default $imageAlt }}
   {{ end }}
-  
+
   {{ if $resource }}
   <div class="flex-shrink-0 order-1 md:order-2 self-start md:self-center ml-0 md:ml-6">
     <a href="{{ $item.RelPermalink }}">
       {{ $canProcess := and (reflect.IsImageResourceProcessable $resource) (ne $resource.MediaType.SubType "gif") }}
-      {{ if $item.Params.image.figure }}
-        {{ $figure := $resource }}
-        {{ if $canProcess }}{{ $figure = $resource.Fit "520x340 webp" }}{{ end }}
-        <img src="{{ $figure.RelPermalink }}" width="{{ $figure.Width }}" height="{{ $figure.Height }}" alt="{{ $item.Params.image.alt_text | default $item.Title | plainify }}" class="publication-figure-thumbnail" loading="lazy" decoding="async">
-      {{ else if $canProcess }}
-        {{ $original_image := $resource.Fill (printf "160x160 %s" $anchor) }}
-        <img src="{{ $original_image.RelPermalink }}" width="160" height="160" alt="{{ $item.Title | plainify }}" class="rounded-full object-cover w-24 h-24 md:w-40 md:h-40 border border-gray-200 dark:border-gray-700 shadow-sm transition-transform duration-300 hover:scale-105">
-      {{ else }}
-        <img src="{{ $resource.RelPermalink }}" alt="{{ $item.Title | plainify }}" class="rounded-full object-cover w-24 h-24 md:w-40 md:h-40 border border-gray-200 dark:border-gray-700 shadow-sm transition-transform duration-300 hover:scale-105">
-      {{ end }}
+      {{ $figure := $resource }}
+      {{ if $canProcess }}{{ $figure = $resource.Fit "520x340 webp" }}{{ end }}
+      <img src="{{ $figure.RelPermalink }}" {{ if $canProcess }}width="{{ $figure.Width }}" height="{{ $figure.Height }}"{{ end }} alt="{{ $imageAlt }}" class="publication-figure-thumbnail" loading="lazy" decoding="async">
     </a>
   </div>
   {{ end }}
