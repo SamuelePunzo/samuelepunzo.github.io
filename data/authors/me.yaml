@@ -54,7 +54,7 @@ education:
 experience:
   - role: Fellow Researcher
     org: Supervised Program for Alignment Research (SPAR)
-    org_short: SPAR
+    org_short: Supervised Program for Alignment Research (SPAR)
     start: 2026-09-01
     summary: |
       Locating refusal circuits in encoder-free models under the supervision of Alessandro Suglia (University of Edinburgh) and Francesco Pinto (Google DeepMind).
